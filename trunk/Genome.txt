@@ -1,0 +1,21 @@
+Genome:
+
+	Represented as an array of binary data, where each cell
+	is responsible for a certain characteristic.
+	Has an "expression" factor (or a binary dominant/recesive),
+	as well as the strength of the gene. This strength is calculated 
+	by turning the binary string into a mathematical expression:
+		00:- 01:+ 10:/ 11:x
+		ints 0-15 (4 bit)
+		length: 6n+4 of form ioioioi (int, operator)
+	
+	Replecation energy is used in the number and length of genes
+	replecated. The longer the genes, the more energy is used up.
+	
+	The longer a gene, the more likely (polynomial/exponential pdf)
+	that a mutation will cause it to become shorter.
+	
+	
+	Mutations can cause substitution, insertion, or deletion of a
+	single bit, following an exponetial pdf. Also, but much less likely,
+	reversals of a whole segment.
