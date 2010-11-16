@@ -1,3 +1,10 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+//package csc106;
+
 public class Genome
 {
 	static final byte Minus = 0;
@@ -37,8 +44,9 @@ public class Genome
 		genome = bin;
 	}
 
-	public void readGenome (Creature c)
+	public int[] readGenome (Creature c)
 	{
+            int[] atributes = new int[3];
 		int Strength = 0, Speed = 0, Smell = 0;
 		boolean gender = (getBinary(0, 1) == 1);
 		int ID = getBinary(1, 15);
@@ -97,6 +105,16 @@ public class Genome
 
 			// Have Result and Type, to place into the Creature.
 		}
+
+
+
+
+                atributes[0] = Strength;
+                atributes[1] = Speed ;
+                atributes[2] = Smell;
+
+
+                return (atributes);
 	}
 
 	public int getBinary (int index, int length)
@@ -135,3 +153,4 @@ public class Genome
 		return toBinary(b, 8);
 	}
 }
+
