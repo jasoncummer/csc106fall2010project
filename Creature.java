@@ -3,42 +3,55 @@
  * and open the template in the editor.
  */
 
-//package csc106project;
+//package csc106;
 
 /**
  *
- * @author jcummer
+ * @author jason
  */
-
-//pointer to 100m likly
-
 public class Creature {
+
+    // For meta date processing, only four bits to use so 16 traits
+    public static final byte strength = 0 ;
+    public static final byte speed = 1 ;
+    public static final byte smell = 2 ;
+    public static final byte gender = 3 ;
 
     byte[] genome2 = new byte[10];
     Genome genome;
     int str;
     int spd;
-    int smell;
-    int	gender;
+    int sme;
+    int	gen;
 
-	int direction
+    int direction;
 
 
-    //constructor
+    //constructor(genome)
+    public Creature(Genome g)
+    {
+
+		this.genome = g;
+
+
+		//orByte(genome[1],gender);//first bit of genome
+		printGenome(genome.genome);
+    }
+
+    //constructor(str,spd,smell,gender)
     public Creature(int str2,int spd2, int smell2, int gender2)
     {
 
 		this.str    = str2;
 		this.spd    = spd2;
-		this.smell  = smell2;
-		this.gender = gender2;
+		this.sme  = smell2;
+		this.gen = gender2;
 
 
 		//orByte(genome[1],gender);//first bit of genome
-		printGenome(genome);
-
-
+		printGenome(genome2);
     }
+    
 
     public Creature (byte[] bin)
     {
@@ -54,8 +67,8 @@ public class Creature {
 
 
 
-		smell(1);
-		move()
+		//smell(1);
+		move(0);
 	}
 
 
@@ -63,29 +76,29 @@ public class Creature {
    // 	701
    // 	6x2
    // 	543
-	public int smell(int address){
-	   //will return a cell from the global array
-	   int i;
-	   int direction;
-
-	   strongestSmell = cell[0];
-	   direction=0;
-
-	   for (i =0 i<=8 ; i++)
-		{
-			if( cell[i] > strongestSmell )
-			{
-				stringestSmell = cell[i];
-				direction = i
-			}
-		}
-	   return (direction);// the direction you wnat to move
-	}
+//	public int smell(int address){
+//	   //will return a cell from the global array
+//	   int i;
+//	   int direction;
+//
+//	   strongestSmell = cell[0];
+//	   direction=0;
+//
+//	   for (i =0 i<=8 ; i++)
+//		{
+//			if( cell[i] > strongestSmell )
+//			{
+//				stringestSmell = cell[i];
+//				direction = i;
+//			}
+//		}
+//	   return (direction);// the direction you wnat to move
+//	}
 
 	public void move(int direction)
 	{
 		//update location
-		direction*spd*terrainMod//*
+		//direction*spd*terrainMod;//*
 	}
 
 
@@ -93,7 +106,7 @@ public class Creature {
    	{
 		int i;
 
-		for( i =0 ; i <10 ; i++ ){
+		for( i =0 ; i < g.length ; i++ ){
 	  		System.out.println(g[i]);
 		}
 	}
@@ -150,3 +163,4 @@ public class Creature {
 //get level i
 //
 //l3 has get level 4,5
+
