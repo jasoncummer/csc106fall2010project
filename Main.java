@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-//package csc106;
+package csc106;
 
 /**
  *
@@ -50,54 +50,66 @@ public class Main {
 //        sop("cnvrtTsixBit(63,b[1])");
 //        cnvrtTsixBit(63,b[1]);
 
-		sop("");
+                sop("");
 
 
-        int length;
-        byte[] tempgene ;
-        int[] values = {1,1};
-        byte[] opperators = {Plus};
-        length = (values.length + opperators.length)+1;
-        tempgene = createGene(length,strength,values,opperators);
-        //sop(tempgene.length);
-        b = addGeneTGenome(tempgene,b);
-
-        values[0]= 1;
-        values[1]= 1;
-        opperators[0] = Minus;
-        length = (values.length + opperators.length)+1;
-        tempgene = createGene(length,speed,values,opperators);
-        //sop(tempgene.length);
-        b = addGeneTGenome(tempgene,b);
-
-        values[0]= 1;
-        values[1]= 1;
-        opperators[0] = Multiply;
-        length = (values.length + opperators.length)+1;
-        //sop(length);
-        tempgene = createGene(length,smell,values,opperators);
-        //sop(tempgene.length);
-        b = addGeneTGenome(tempgene,b);
-
-
-
-        int[] values2 = {1,2,3};
-        byte[] opperators2 = {Multiply,Plus};
-        length = (values.length + opperators.length)+1;
-        tempgene = createGene(length,speed,values2,opperators2);
-        //sop(tempgene.length);
-        b = addGeneTGenome(tempgene,b);
-
-
-        printGenomeLong(b);
-        printGenome(b);
-
-        Genome genome= new Genome(b);
-
-        Creature c = new Creature(genome);
-
+        
+       
     }//end Main method
 
+
+
+    // purpose      : To take a male and female genome and preform homologus
+    //                    recombination on them.
+    // parameters   :
+    // returns      :
+    // displays     :
+    public static void recombination(byte[] male ,byte[] female)
+    {
+        byte[] childgenome1;
+        byte[] childgenome2;
+
+
+
+
+
+
+
+
+
+
+        int index = 371;
+        sop(index);
+
+        int index1 = (index/8);
+        sop(index1);
+        int index2 = (index)%8;
+        sop(index2);
+
+        if ((index2 > 0) && (index2 < 4) )
+       {
+            sop("here");
+            index2 = index2 - index2;
+            index = index - index2;
+        }else if((index2 > 3 )&& (index2 < 7))
+        {
+            sop("there");
+
+            index2 = index2 + (7 - index2);
+            index = index + index2;
+        }
+        sop(index2);
+        sop(index);
+
+
+
+
+
+
+
+
+
+    }//end recombination
 
 
 
@@ -420,3 +432,51 @@ public class Main {
 //bitwase operations
 //http://leepoint.net/notes-java/data/expressions/bitops.html
 
+
+
+
+//old stuff
+//
+//
+//        int length;
+//        byte[] tempgene ;
+//        int[] values = {1,1};
+//        byte[] opperators = {Plus};
+//        length = (values.length + opperators.length)+1;
+//        tempgene = createGene(length,strength,values,opperators);
+//        //sop(tempgene.length);
+//        b = addGeneTGenome(tempgene,b);
+//
+//        values[0]= 1;
+//        values[1]= 1;
+//        opperators[0] = Minus;
+//        length = (values.length + opperators.length)+1;
+//        tempgene = createGene(length,speed,values,opperators);
+//        //sop(tempgene.length);
+//        b = addGeneTGenome(tempgene,b);
+//
+//        values[0]= 1;
+//        values[1]= 1;
+//        opperators[0] = Multiply;
+//        length = (values.length + opperators.length)+1;
+//        //sop(length);
+//        tempgene = createGene(length,smell,values,opperators);
+//        //sop(tempgene.length);
+//        b = addGeneTGenome(tempgene,b);
+//
+//
+//
+//        int[] values2 = {1,2,3};
+//        byte[] opperators2 = {Multiply,Plus};
+//        length = (values.length + opperators.length)+1;
+//        tempgene = createGene(length,speed,values2,opperators2);
+//        //sop(tempgene.length);
+//        b = addGeneTGenome(tempgene,b);
+//
+//
+//        printGenomeLong(b);
+//        printGenome(b);
+//
+//        Genome genome= new Genome(b);
+//
+//        Creature c = new Creature(genome);
