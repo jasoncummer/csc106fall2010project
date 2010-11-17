@@ -67,8 +67,13 @@ public class Genome
     //                    us though.
     public static void recombination(byte[] male ,byte[] female)
     {
+        byte[][] scanarray = {male,female};
+    
         byte[] childgenome1;
         byte[] childgenome2;
+        
+        
+        
         int maxpivot;
         Random generator = new Random();
 
@@ -80,10 +85,42 @@ public class Genome
             maxpivot = genomeMaleLength;
         }else{
             maxpivot = genomeFemaleLength;
+            
         }
 
         childgenome1 = new byte[maxpivot];
         childgenome2 = new byte[maxpivot];
+        
+        
+        int[] maleGenes    = new int[maxpivot];
+        int[] femaleGenes  = new int[maxpivot];
+        int[][] parentGenesSizes = {maleGenes, femaleGenes};
+        
+        
+        //finding the length and number of the genes
+        int j = 0;
+        for(int k = 0 ; k < 2 ; k++){
+            for (int i = 16; i < scanarray[k].length*8 ; j++) //starsts after the g,id,
+                 {
+                            System.out.println(getBinary(0, 6,scanarray[k]));
+                            int len = getBinary(i, 6,scanarray[k]);
+                            System.out.println("getbinary "+len);
+                            len += 6;//the length in bits of lengthflag
+                            System.out.println("+lengthflag size "+len);
+                            len += 4;//the length in bits of atributeflag
+                            System.out.println("+atributeflag size "+len);
+                            i += len;//skip to next gene
+                            System.out.println("+len "+len);
+                            
+                            parentGenesSizes[k][j] = len;
+                             System.out.println(j);
+
+                            int n = (len - (len-1)%6+1)/6;
+                            double value = 0;
+
+                           
+                }
+        }
 
         int pivot = generator.nextInt( maxpivot -16 );
         //System.out.println(pivot);
