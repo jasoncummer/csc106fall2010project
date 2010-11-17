@@ -40,15 +40,17 @@ public class Main {
         b[0] = setGender(1,b[0]);
 //        sop(showByte(-128));
 //        sop("");
-        
 
-//        b[0] = setGeneLength(8,b[0]);
-//        sop("b[0] after setGeneLength(8,b[0]); " + toBinary(b[0]));
-//        sop("");
+
+        b[0] = setGeneLength(8,b[0]);
+       sop("b[0] after setGeneLength(8,b[0]); " + toBinary(b[0]));
+       sop("");
 
 //        byte testbyte = 0;
 //        sop("cnvrtTsixBit(63,b[1])");
 //        cnvrtTsixBit(63,b[1]);
+
+		sop("");
 
 
         int length;
@@ -160,7 +162,7 @@ public class Main {
                 //System.out.println("i: " + i + " k: " + k);
                 geneparts[i] = (byte)opperators[k];
                 k++;
-                
+
             }// end if(opperators.length != 0)
 
             j++;
@@ -174,7 +176,7 @@ public class Main {
 
 
     // PURPOSE    :
-    // PARAMATERS : 
+    // PARAMATERS :
     // RETURNS    :
     // DISPLAYS   :
     public static void printGenomeLong(byte[] b)
@@ -183,7 +185,7 @@ public class Main {
         for (i = 0 ; i< b.length ; i++)
         {
             System.out.print(toBinary(b[i]) + " ");
-            
+
         }//end for i
         sop("");
 
@@ -218,7 +220,7 @@ public class Main {
         b = (byte)( b | tempByte);
         //sop(" b | tempByte: " + toBinary(b));
        // sop("");
-        
+
         //sop(toBinary(b));
        // sop("");
 
@@ -241,13 +243,13 @@ public class Main {
             sop("in cnvrtTsixBit int i has to be between 0-63");
             return (b);
         }
-        
+
 
         return (b);
     }// end method cnvrtTsixBit
 
 
-    //PURPOSE   : to set the gender of the genome
+   //PURPOSE    : to set the gender of the genome
    //PARAMATERS : passed an integer and a byte, 1 female, 0 male
    //RETURNS    :
    //DISPLAYS   :
@@ -262,7 +264,7 @@ public class Main {
         return (b);
     }// end setgender method
 
-    //PURPOSE   : shows the bits of a byte and the leading zeros
+   //PURPOSE    : shows the bits of a byte and the leading zeros
    //PARAMATERS : passed an integer
    //RETURNS    : a string with the bit pattern of eight chars length
    //DISPLAYS   :nothing
@@ -293,7 +295,7 @@ public class Main {
 
            return stringOfBits;
      }//end  showBits method
-     
+
      // PURPOSE   : to add leading zeros to a bit string representing a byte
      // PARAMETERS: passed an int
      // RETURNS   : a string 8 chars in length
@@ -348,27 +350,27 @@ public class Main {
 
     public static byte orByte(byte b){
 
-	        b |= 1;
+                b |= 1;
 
-	                sop(b);
-	        return b;
+                        sop(b);
+                return b;
     }//end orByte
 
     public static byte xorByte(byte b){
 
-	        b ^= 1;
+                b ^= 1;
 
-	                sop(b);
-	        return b;
+                        sop(b);
+                return b;
     }//end xorByte
 
    public static byte rightShiftByte(byte b){
 
 
-		b = (byte)(b >> 1);
+                b = (byte)(b >> 1);
 
-		sop(b);
-		return b;
+                sop(b);
+                return b;
 
     }//end rightShiftByte
 
@@ -383,33 +385,33 @@ public class Main {
     public static void sop(String s){
         System.out.println(s);
     }
-    
+
     public static String toBinary (byte b, int size)
-	{
-		String s = "";
-		for (int i = 8 - size; i < 8; i++)
-		{
-			if ((byte)(b & Masks[7-i]) == Masks[7-i])
-				s += "1";
-			else
-				s += "0";
-		}
-		return s;
-	}
+        {
+                String s = "";
+                for (int i = 8 - size; i < 8; i++)
+                {
+                        if ((byte)(b & Masks[7-i]) == Masks[7-i])
+                                s += "1";
+                        else
+                                s += "0";
+                }
+                return s;
+        }
 
     public static String toBinary (byte b)
-	{
-		return toBinary(b, 8);
-	}
-    
-    // PURPOSE    : 
+        {
+                return toBinary(b, 8);
+        }
+
+    // PURPOSE    :
     // PARAMATERS :
     // RETURNS    :
     // DISPLAYS   :
     public static void template()
     {
-       
-           
+
+
     }
 }
 // byte arrays
@@ -417,3 +419,4 @@ public class Main {
 
 //bitwase operations
 //http://leepoint.net/notes-java/data/expressions/bitops.html
+
