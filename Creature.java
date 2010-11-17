@@ -51,7 +51,7 @@ public class Creature {
 		//orByte(genome[1],gender);//first bit of genome
 		printGenome(genome2);
     }
-    
+
 
     public Creature (byte[] bin)
     {
@@ -59,17 +59,8 @@ public class Creature {
 		genome.readGenome(this);
 	}
 
-   // create gemome(){}
-
-	public void AI()
-	{
-		//NEED TO INTERPRET THE AI
 
 
-
-		//smell(1);
-		move(0);
-	}
 
 
    // Direction Grid
@@ -127,6 +118,32 @@ public class Creature {
 
 
 
+//	public static void ai(){
+//
+//	getlevel5object(x,y)
+//		creatures
+//		food
+//		//water
+//		//plants
+//		//ojects
+//
+//		//move?
+//		direction =random
+//		if (no creaeture & no object){
+//			go //update the levelfiveobj creature list for this squre -1 and add the creature to newsqure creature[]
+//		}// end if obstical detection
+//
+//		//eat?
+//		if(l5obj.food.length > 0)
+//		{
+//
+//			//eat
+//			//update the linked list in l5obj.food -1
+//
+//		}// end if (food) --> eat
+//
+//	}// end ai method
+
 
 }
 
@@ -156,11 +173,13 @@ public class Creature {
 ///world obj
 //level 3 object
 //	public level5 getLevel5(int x,int y)//on a meter scale
-//		ll creatures,plants, objects,water,
+//		linked lists creatures,plants, objects,water,food
 // L3 obj has get level 4,5
 
 //world obj
 //get level i
 //
 //l3 has get level 4,5
+
+
 

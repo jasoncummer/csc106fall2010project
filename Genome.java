@@ -1,10 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-//package csc106;
-
 public class Genome
 {
 	static final byte Minus = 0;
@@ -14,6 +7,7 @@ public class Genome
 
 	static final byte LengthFlag = 6; //6 bits, so Max Legnth = 64
 	static final byte TypeFlag = 4; //4 bits, so Max Types = 16
+	static final int NumTypes = (int)Math.pow(2, TypeFlag);
 
 	static final byte[] Masks = {1 << 0, 1 << 1, 1 << 2, 1 << 3, 1 << 4, 1 << 5, 1 << 6, (byte)(1 << 7)};
 
@@ -22,21 +16,14 @@ public class Genome
 
 	public static void main (String[] args)
 	{
-		/*byte[] bin = {(byte)0xFF, (byte)0xA1, (byte)0x02, (byte)0x93};
-		for (int i = 0; i < bin.length; i++)
+		Genome g = Genome.randomGenome();
+		System.out.println(g.genome.length);
+		for (int i = 0; i < g.genome.length; i++)
 		{
-			System.out.print(toBinary(bin[i]));
+			System.out.print(toBinary(g.genome[i]));
 		}
 		System.out.println();
-
-		System.out.print(toBinary((byte)getBinary(0, 5, bin), 5));
-		System.out.print(toBinary((byte)getBinary(5, 4, bin), 4));
-		System.out.print(toBinary((byte)getBinary(9, 8, bin), 8));
-		System.out.print(toBinary((byte)getBinary(17, 3, bin), 3));
-		System.out.print(toBinary((byte)getBinary(20, 7, bin), 7));
-		System.out.print(toBinary((byte)getBinary(27, 5, bin), 5));
-
-		System.out.println();*/
+		g.readGenome();
 	}
 
 	public Genome (byte[] bin)
@@ -44,9 +31,8 @@ public class Genome
 		genome = bin;
 	}
 
-	public int[] readGenome (Creature c)
+	public void readGenome (Creature c)
 	{
-            int[] atributes = new int[3];
 		int Strength = 0, Speed = 0, Smell = 0;
 		boolean gender = (getBinary(0, 1) == 1);
 		int ID = getBinary(1, 15);
@@ -71,12 +57,14 @@ public class Genome
 				value = getBinary(i, len);
 				i += len;
 			}
+			value++;
 
 			for (int j = 0; j < n-1; j++)
 			{
 				int op = getBinary(i, 2);
 				i += 2;
 				int num = getBinary(i, 4);
+				num++;
 				i += 4;
 
 				switch (op)
@@ -91,6 +79,7 @@ public class Genome
 			int op = getBinary(i, 2);
 			i += 2;
 			int num = getBinary(i, len-6*n);
+			num++;
 			i += len-6*n;
 
 			switch (op)
@@ -102,19 +91,23 @@ public class Genome
 			}
 
 			int result = (int)value;
+			if (result < 0)
+				result = 0;
+
+			System.out.println("Type = "+type+", value = "+result);
 
 			// Have Result and Type, to place into the Creature.
+			switch (type)
+			{
+				case 1: Strength += result; break;
+				case 2: Speed += result; break;
+				case 3: Smell += result; break;
+			}
 		}
-
-
-
-
-                atributes[0] = Strength;
-                atributes[1] = Speed ;
-                atributes[2] = Smell;
-
-
-                return (atributes);
+		System.out.println("isMale? = "+gender);
+		System.out.println("Strength = "+Strength);
+		System.out.println("Speed = "+Speed);
+		System.out.println("Smell = "+Smell);
 	}
 
 	public int getBinary (int index, int length)
@@ -122,17 +115,94 @@ public class Genome
 		return getBinary(index, length, genome);
 	}
 
-	public static int getBinary (int index, int length, byte[] bin) // Length must be <= 32
+	public static int getBinary (int index, int length,
+										byte[] bin) // Length must be <= 32
 	{
 		int r = 0;
 		int offset = index % 8;
 		for (int i = 0; i < length; i++)
 		{
 			r = r << 1;
-			if ((bin[(index+i)/8] & Masks[7 - (i + offset)%8]) ==  Masks[7 - (i + offset)%8])
+			if ((bin[(index+i)/8] & Masks[7 - (i + offset)%8]) ==
+												Masks[7 - (i + offset)%8])
+			{
 				r += 1;
+			}
 		}
 		return r;
+	}
+
+	public void setBinary (int value, int index, int length)
+	{
+		setBinary(value, index, length, genome);
+	}
+
+	public static void setBinary (int value, int index, int length,
+										byte[] bin) // Length must be <= 32
+	{
+		//System.out.println("Binary: "+toBinary((byte)value));
+		int offset = index % 8;
+		for (int i = 0; i < length; i++)
+		{
+			//System.out.println("i = " + i);
+			if ((value & (1 << (length - i - 1))) == (1 << (length - i - 1)))
+			{
+				//System.out.println(toBinary(bin[(index+i)/8]));
+				//System.out.println(toBinary(Masks[7 - (i + offset)%8]));
+				bin[(index+i)/8] = (byte)(bin[(index+i)/8] | Masks[7 - (i + offset)%8]);
+				//System.out.println(toBinary(bin[(index+i)/8]));
+				//System.out.println();
+			}
+			else
+			{
+				//System.out.println(toBinary(bin[(index+i)/8]));
+				//System.out.println(toBinary((byte)~Masks[7 - (i + offset)%8]));
+				bin[(index+i)/8] = (byte)(bin[(index+i)/8] & ~Masks[7 - (i + offset)%8]);
+				//System.out.println(toBinary(bin[(index+i)/8]));
+				//System.out.println();
+			}
+		}
+	}
+
+	public static Genome randomGenome()
+	{
+		byte[] bin;
+
+		int numGenes = 12;
+		int[] lenGenes = new int[numGenes];
+		int sum = 16;
+
+		for (int i = 0; i < numGenes; i++)
+		{
+			lenGenes[i] = (int)(Math.random()*20) + 12;
+			sum += lenGenes[i] + LengthFlag + TypeFlag;
+		}
+		int len = sum/8;
+		if (sum%8 != 0)
+			len++;
+		bin = new byte[len];
+
+		int index = 0;
+		setBinary((int)(Math.random()*2), index, 1, bin);
+		index += 1;
+		setBinary(0, index, 15, bin);
+		index += 15;
+
+		for (int i = 0; i < numGenes; i++)
+		{
+			setBinary(lenGenes[i], index, LengthFlag, bin);
+			index += LengthFlag;
+			setBinary((int)(Math.random()*NumTypes), index, TypeFlag, bin);
+			index += TypeFlag;
+
+			for (int j = 0; j < lenGenes[i]; j++)
+			{
+				setBinary((int)(Math.random()*2), index, 1, bin);
+				index += 1;
+			}
+		}
+
+		return new Genome(bin);
 	}
 
 	public static String toBinary (byte b, int size)
@@ -153,4 +223,3 @@ public class Genome
 		return toBinary(b, 8);
 	}
 }
-
